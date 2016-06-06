@@ -208,7 +208,7 @@ void Player::Update(float dt)
 	}
 	if(m_fallBegin)
 	{
-		m_timeFall += 40 * 0.03f;
+		m_timeFall += 40 * 0.003f;
 		if (m_timeFall > 40)
 		{
 			this->stopAllActions();

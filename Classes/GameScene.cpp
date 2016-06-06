@@ -174,51 +174,40 @@ void GameScene::update(float dt)
 	}
 	else
 	{
-		//if (jumpCheck)
-		//{
-		//	m_velocityGravity = 0;
-		//	m_velocityGravity += (30 * 0.05f) * -1;//ускорение
-		//	if (m_velocityGravity < -3)
-		//	{
-		//		m_velocityGravity = -3;
-		//		m_player->SetGravityHero(m_velocityGravity);
-		//		jumpCheck = false;
-		//	}
-		//	else
-		//	{
-		//		m_player->SetGravityHero(m_velocityGravity);
-		//	}
-		//}
-		//else 
-		//{
+		if (jumpCheck)
+		{
+			m_velocityGravity += (30 * 0.009f) * -1;//ускорение
+			if (m_velocityGravity < -3)
+			{
+				m_velocityGravity = -3;
+				m_player->SetGravityHero(m_velocityGravity);
+				jumpCheck = false;
+			}
+			else
+			{
+				m_player->SetGravityHero(m_velocityGravity);
+			}
+		}
+		else 
+		{
 			m_velocityGravity = -3;
 			m_player->SetGravityHero(m_velocityGravity);
-		//}
+		}
 	}
 	if (m_clickedJump)
 	{
 		UpdateSound();
 		m_player->Jump();
-		m_velocityVec += m_superJump * 0.010f;//ускорение
+		m_velocityVec -= m_superJump * 0.010f;//ускорение
 		m_player->m_onGround = false;
-		if(!jumpCheck)
-		{
-			m_player->setPosition(m_player->getPosition().x, m_player->getPosition().y + m_velocityVec);
-		}
-		if (m_velocityVec > m_superJump - 20)//высота прыжка
+		m_player->setPosition(m_player->getPosition().x, m_player->getPosition().y + m_velocityVec);
+		if (m_velocityVec < m_superJump - 18)//высота прыжка
 		{
 			jumpCheck = true;
-			m_gravity-= 10 * 0.02f;
-			m_player->setPosition(m_player->getPosition().x, m_player->getPosition().y + m_gravity);
-			if(m_gravity < 1)
-			{
-				jumpCheck = false;
-				m_player->stopAllActions();
-				m_player->Fall();
-				m_clickedJump = false;
-				m_velocityVec = 0;
-				m_gravity = 3;
-			}
+			m_player->stopAllActions();
+			m_player->Fall();
+			m_clickedJump = false;
+			m_velocityVec = 30;
 		}
 	}
 	UpdateIcon(x, y);
@@ -257,11 +246,11 @@ void GameScene::UpdateCollisionPlayer(float x, float y)
 			}
 			if (dx > 0)
 			{
-				m_player->setPosition(x - 18, y);//4.15 с мотором
+				m_player->setPosition(x - 5, y);//4.15 с мотором
 			}
 			if (dx < 0)
 			{
-				m_player->setPosition(x + 18, y);//4.15 с мотором
+				m_player->setPosition(x + 5, y);//4.15 с мотором
 			}
 		}
 	}

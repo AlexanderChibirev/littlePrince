@@ -51,7 +51,7 @@ private:
 	Joystick *m_joy;
 	Player *m_player;
 	float m_timeSound = 0;
-	float m_velocityVec = 0;
+	float m_velocityVec = 30;
 	Sprite *m_spriteKeyIcon = Sprite::create("key.png");
 	Sprite *cameraTarget;
 	Follow *camera;
